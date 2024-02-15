@@ -15,11 +15,6 @@ hf_hub_download(repo_id="InstantX/InstantID", filename="ip-adapter.bin", local_d
 
 Or run the following command to download all models:
 
-```python
-pip install -r gradio_demo/requirements.txt
-python gradio_demo/download_models.py
-```
-
 If you cannot access to Huggingface, you can use [hf-mirror](https://hf-mirror.com/) to download models.
 ```python
 export HF_ENDPOINT=https://hf-mirror.com
