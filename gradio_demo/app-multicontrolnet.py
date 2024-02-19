@@ -28,6 +28,8 @@ from pipeline_stable_diffusion_xl_instantid_full import StableDiffusionXLInstant
 from model_util import load_models_xl, get_torch_device, torch_gc
 from controlnet_util import openpose, get_depth_map, get_canny_image
 
+from diffusers import LCMScheduler
+
 import gradio as gr
 
 
@@ -47,8 +49,8 @@ app = FaceAnalysis(
 app.prepare(ctx_id=0, det_size=(640, 640))
 
 # Path to InstantID models
-face_adapter = f"./checkpoints/ip-adapter.bin"
-controlnet_path = f"./checkpoints/ControlNetModel"
+face_adapter = f"./checkpoint/ip-adapter.bin"
+controlnet_path = f"./checkpoint/ControlNetModel"
 
 # Load pipeline face ControlNetModel
 controlnet_identitynet = ControlNetModel.from_pretrained(
@@ -127,6 +129,15 @@ def main(pretrained_model_name_or_path="wangqixun/YamerMIX_v8", enable_lcm_arg=F
     # load and disable LCM
     pipe.load_lora_weights("latent-consistency/lcm-lora-sdxl")
     pipe.disable_lora()
+
+    lcm_lora_path = "./checkpoints/pytorch_lora_weights.safetensors"
+
+    pipe.load_lora_weights(lcm_lora_path)
+    pipe.fuse_lora()
+    pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
+
+    num_inference_steps = 10
+    guidance_scale = 0
 
     def toggle_lcm_ui(value):
         if value:
@@ -659,7 +670,7 @@ def main(pretrained_model_name_or_path="wangqixun/YamerMIX_v8", enable_lcm_arg=F
 
         gr.Markdown(article)
 
-    demo.launch()
+    demo.launch(share=True)
 
 
 if __name__ == "__main__":
