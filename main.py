@@ -41,6 +41,30 @@ import cv2
 
 from transformers import DPTImageProcessor, DPTForDepthEstimation
 
+# prepare 'antelopev2' under ./models
+app = FaceAnalysis(name='antelopev2', root='./', providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
+app.prepare(ctx_id=0, det_size=(640, 640))
+
+# prepare models under ./checkpoints
+face_adapter = f'./checkpoint/ip-adapter.bin'
+controlnet_path = f'./checkpoint/ControlNetModel'
+
+# load IdentityNet
+controlnet = ControlNetModel.from_pretrained(controlnet_path, torch_dtype=torch.float16)
+
+base_model = 'wangqixun/YamerMIX_v8'  # from https://civitai.com/models/84040?modelVersionId=196039
+pipe = StableDiffusionXLInstantIDPipeline.from_pretrained(
+    base_model,
+    controlnet=controlnet,
+    torch_dtype=torch.float16
+)
+pipe.cuda()
+
+# load adapter
+pipe.load_ip_adapter_instantid(face_adapter)
+
+pipe.enable_model_cpu_offload()
+
 device = get_torch_device()
 depth_estimator = DPTForDepthEstimation.from_pretrained("Intel/dpt-hybrid-midas").to(device)
 feature_extractor = DPTImageProcessor.from_pretrained("Intel/dpt-hybrid-midas")
@@ -570,6 +594,7 @@ controlnet_map_fn = {
 
 pretrained_model_name_or_path = "wangqixun/YamerMIX_v8"
 enable_LCM = False
+enable_lcm_arg=False
 
 # def main(pretrained_model_name_or_path="wangqixun/YamerMIX_v8", enable_lcm_arg=False):
 if pretrained_model_name_or_path.endswith(
