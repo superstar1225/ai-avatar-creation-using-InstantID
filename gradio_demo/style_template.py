@@ -5,6 +5,11 @@ style_list = [
         "negative_prompt": "",
     },
     {
+        "name": "Emotional Cartoon Avatar",
+        "prompt": "vibrant colorful, cartoon avatar from person photo, with rich emotion representation, {prompt}, highly detailed, colorful, ultra sharpness, emphasizing facial expressions to convey strong emotions",
+        "negative_prompt": "(lowres, low quality, worst quality:1.2), (text:1.2), watermark, (frame:1.2), deformed, ugly, deformed eyes, blur, out of focus, blurry, realistic photo, anthropomorphic features, monochrome, pet collar, gun, weapon, blue, 3d, drones, drone, buildings in background, green"
+    },
+    {
         "name": "Watercolor",
         "prompt": "watercolor painting, {prompt}. vibrant, beautiful, painterly, detailed, textural, artistic",
         "negative_prompt": "(lowres, low quality, worst quality:1.2), (text:1.2), watermark, anime, photorealistic, 35mm film, deformed, glitch, low contrast, noisy",

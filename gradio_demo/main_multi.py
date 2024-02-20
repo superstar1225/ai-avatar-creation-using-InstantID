@@ -9,7 +9,6 @@ import math
 import torch
 import random
 import numpy as np
-import argparse
 
 import PIL
 from PIL import Image
@@ -209,15 +208,22 @@ def get_example():
         [
             "./examples/001.png",
             "./examples/poses/pose5.png",
-            "a man sit on a chair",
+            "a woman sit on a chair",
             "Neon",
             "(lowres, low quality, worst quality:1.2), (text:1.2), watermark, (frame:1.2), deformed, ugly, deformed eyes, blur, out of focus, blurry, deformed cat, deformed, photo, anthropomorphic cat, monochrome, photo, pet collar, gun, weapon, blue, 3d, drones, drone, buildings in background, green",
         ],
         [
             "./examples/002.png",
             "./examples/poses/pose6.png",
-            "a man",
+            "a woman",
             "Vibrant Color",
+            "(lowres, low quality, worst quality:1.2), (text:1.2), watermark, (frame:1.2), deformed, ugly, deformed eyes, blur, out of focus, blurry, deformed cat, deformed, photo, anthropomorphic cat, monochrome, photo, pet collar, gun, weapon, blue, 3d, drones, drone, buildings in background, green",
+        ],
+        [
+            "./examples/003.png",
+            "./examples/poses/pose6.png",
+            "A woman dancing in a blue dress by the sea. His legs are submerged in the water. The sun was shining, and a gentle breeze made the heat bearable.",
+            "Emotional Cartoon Avatar",
             "(lowres, low quality, worst quality:1.2), (text:1.2), watermark, (frame:1.2), deformed, ugly, deformed eyes, blur, out of focus, blurry, deformed cat, deformed, photo, anthropomorphic cat, monochrome, photo, pet collar, gun, weapon, blue, 3d, drones, drone, buildings in background, green",
         ],
     ]
